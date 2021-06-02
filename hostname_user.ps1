@@ -2,7 +2,7 @@ Import-Module ActiveDirectory
 [array]$export = $null
 #$ErrorActionPreference= 'silentlycontinue'
 #Iport the list of computers from within a CSV
-$path = "C:\Users\20648755\Documents\Scripts"
+$path = ".\Scripts"
 $base = import-Csv "$Path\computernames.csv" | Select-Object -ExpandProperty Name
 
 ForEach ($bases in $base){
