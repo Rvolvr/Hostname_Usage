@@ -2,13 +2,13 @@ Import-Module ActiveDirectory
 [array]$export = $null
 #$ErrorActionPreference= 'silentlycontinue'
 #Iport the list of computers from within a CSV
-$path = ".\Scripts"
+$path = ".\"
 $base = import-Csv "$Path\computernames.csv" | Select-Object -ExpandProperty Name
 
 ForEach ($bases in $base){
 #Pull each name for their individual tests
-    $ADcomp = Get-ADcomputer $bases
-    $ip = Resolve-DnsName $bases | Select-Object -IPAddress
+    $ADcomp = Get-ADcomputer $bases 
+    $ip = Resolve-DnsName $ADcomp.name | Select-Object -Expandproperty IPAddress
     $Ping = test-connection $bases -Quiet
 
 IF ($null -eq $ADComp){
@@ -38,4 +38,4 @@ IF ($null -eq $ADComp){
     }
 }
 }
-$export | Export-Csv "$path\comp_lists.csv"
+$export | Export-Csv "$path\comp_lists.csv" -NoTypeInformation
