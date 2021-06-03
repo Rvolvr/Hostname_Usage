@@ -6,7 +6,7 @@ $path = ".\"
 $base = import-Csv "$Path\computernames.csv" | Select-Object -ExpandProperty Name
 
 ForEach ($bases in $base){
-#Pull each name for their individual tests
+    #Pull each name for their individual tests
     $ADcomp = Get-ADcomputer $bases 
     $ip = Resolve-DnsName $ADcomp.name | Select-Object -Expandproperty IPAddress
     $Ping = test-connection $bases -Quiet
@@ -38,4 +38,4 @@ IF ($null -eq $ADComp){
     }
 }
 }
-$export | Export-Csv "$path\comp_lists.csv" -NoTypeInformation
+$export | Export-Csv "$path\comp_lists.csv" -tf
