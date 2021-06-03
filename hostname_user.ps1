@@ -1,7 +1,7 @@
 Import-Module ActiveDirectory
 [array]$export = $null
 #$ErrorActionPreference= 'silentlycontinue'
-#Iport the list of computers from within a CSV
+#Import the list of computers from within a CSV with the label 'name'
 $path = ".\"
 $base = import-Csv "$Path\computernames.csv" | Select-Object -ExpandProperty Name
 
@@ -38,4 +38,4 @@ IF ($null -eq $ADComp){
     }
 }
 }
-$export | Export-Csv "$path\comp_lists.csv" -tf
+$export | Export-Csv "$path\comp_lists.csv" -NoTypeInformation
