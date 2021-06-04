@@ -23,7 +23,7 @@ foreach ($name in $list) {
         
             
     } Catch { 
-        
+        $data.Reason = $_
     }
     $export += $data
     
