@@ -7,23 +7,23 @@ $path = "."
 $list = Get-Content "$path\computernames.csv" 
 
 foreach ($name in $list) {
+    $data = [pscustomobject]@{
+        Name = $name
+        Enabled = 'False'
+        Risk = 'None'
+        IPAddress = 'None'
+        Active = 'False'
+    }
     Try {
-        $data = [pscustomobject]{
-            Name = $name
-            Risk = 'None'
-            IP = 'None'
-            Active = 'False'
-            Reason = ''
-         }
-        $data.Name = Get-ADComputer $name -ErrorAction:Stop | Select-Object hostname
-        $data.Risk = 'Moderate'
-        $data.IP = Resolve-DnsName $name -Type A -ErrorAction:Stop | Select-Object IPAddress
-        $data.Risk = 'Check name'
+        $data.Enabled = Get-ADComputer $name -ErrorAction:Stop | Select-Object -ExpandProperty Enabled
+        $data.Risk = 'Recently Active'
+        $data.IPAddress = Resolve-DnsName $name -Type A -ErrorAction:Stop | Select-Object -ExpandProperty IPAddress
+        $data.Risk = 'Please Verify Name - Currently Active'
         $data.Active = Test-Connection $name -Quiet -Count 2
         
             
     } Catch { 
-        $data.Reason = $_
+        
     }
     $export += $data
     
