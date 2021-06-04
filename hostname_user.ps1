@@ -1,4 +1,5 @@
 Import-Module ActiveDirectory
+Import-Module DnsClient
 [array]$export = $null
 
 #Import the list of computers from within a CSV with the label 'name'
@@ -16,7 +17,12 @@ ForEach ($bases in $base){
         $base
         $export += $bases
     }
-    $ip = Resolve-DnsName $ADcomp | Select-Object -Expandproperty IPAddress
+    Try {
+        $ip = Resolve-DnsName $ADcomp | Select-Object -Expandproperty IPAddress
+    } Catch {
+        $_
+    }
+
     $Ping = test-connection $bases -Quiet
 
 IF ($null -eq $ADComp){
