@@ -3,21 +3,30 @@ Import-Module DnsClient
 [array]$export = $null
 
 #Import the list of computers from within a CSV with the label 'name'
-$path = ".\"
-$Export = Get-Content "$Path\computernames.csv" | ForEach-Object {
+$path = "."
+$list = Get-Content "$path\computernames.csv" 
+
+foreach ($name in $list) {
     Try {
-        Get-ADComputer $_
-    } Catch [Microsoft.ActiveDirectory.Management.ADIdentityNotFoundException] {
-            Return "$_ Not Found in Domain"
-            Continue
-    } 
-    Try {
-        Resolve-DnsName $_ -Type A
-    } Catch {
-        Return "$_"
-        Continue
+        $data = [pscustomobject]{
+            Name = $name
+            Risk = 'None'
+            IP = 'None'
+            Active = 'False'
+            Reason = ''
+         }
+        $data.Name = Get-ADComputer $name -ErrorAction:Stop | Select-Object hostname
+        $data.Risk = 'Moderate'
+        $data.IP = Resolve-DnsName $name -Type A -ErrorAction:Stop | Select-Object IPAddress
+        $data.Risk = 'Check name'
+        $data.Active = Test-Connection $name -Quiet -Count 2
+        
+            
+    } Catch { 
+        
     }
-    Test-Connection $_ -Quiet
+    $export += $data
     
 }
 
+$export | Export-Csv "$path\computer_results.csv" -NoTypeInformation
