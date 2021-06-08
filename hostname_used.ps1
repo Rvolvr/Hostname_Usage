@@ -1,29 +1,51 @@
+<#
+.SYNOPSIS
+This script was created for the purpose of risk assessment when reusing a computer name. 
+
+.DESCRIPTION
+This script is designed to establish if a user could be using a hostname while accounting for the amount of time it would take to ship a computer.
+
+.NOTES
+These are imperfect tests. The only perfect way to reuse a name is to check the physical computer and use that same name.
+Computer login attribute within Active Directory objects are as many as 14 days old, and are meant to show computers that have aged out of a domain.
+#>
+
 Import-Module ActiveDirectory
 Import-Module DnsClient
 [array]$export = $null
 
-#Import the list of computers from within a CSV with the label 'name'
+#Import the list of computers from within a text file with no label
 $path = "."
-$list = Get-Content "$path\computernames.csv" 
+$list = Get-Content "$path\computernames.txt" 
+$list = $list.trim()
 
 foreach ($name in $list) {
+    #creating an exportable object with the informational fields we will use
+    #Fields are pre-filled with default information for skipping when in error
     $data = [pscustomobject]@{
         Name = $name
-        Enabled = 'False'
-        Risk = 'None'
-        IPAddress = 'None'
-        Active = 'False'
+        Enabled = $False
+        Risk = $null
+        IPAddress = $null
+        Active = $False
+        Error = $null
     }
     Try {
+        #If a computer is not on the domain, this will fail and move to the next name on the list.
         $data.Enabled = Get-ADComputer $name -ErrorAction:Stop | Select-Object -ExpandProperty Enabled
-        $data.Risk = 'Recently Active'
-        $data.IPAddress = Resolve-DnsName $name -Type A -ErrorAction:Stop | Select-Object -ExpandProperty IPAddress
-        $data.Risk = 'Please Verify Name - Currently Active'
-        $data.Active = Test-Connection $name -Quiet -Count 2
+        #Risk levels elevate as tests are passed 
+        $data.Risk = 'On Domain - Could cause issue if in shipping'
         
+        #IPs are generally in DNS for only a few hours after disconnecting from the network. 
+        $data.IPAddress = Resolve-DnsName $name -Type A -ErrorAction:Stop | Select-Object -ExpandProperty IPAddress
+        $data.Risk = 'Has an IP - Could have been active in last 24 hours' 
+        
+        #Pings show that the associated IP to the host is active.
+        $data.Active = Test-Connection $name -Quiet -Count 2
+        $data.Risk = 'Please Verify Name - Currently Active'  
             
     } Catch { 
-        
+        $data.Error = [string]$_
     }
     $export += $data
     
