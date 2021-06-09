@@ -15,8 +15,8 @@ Import-Module DnsClient
 [array]$export = $null
 
 #Import the list of computers from within a text file with no label
-$path = "."
-$list = Get-Content "$path\computernames.txt" 
+$path = "REPLACE ME - No SLASH AT THE END"
+$list = Get-Content "$path\computernames.txt"
 $list = $list.trim()
 
 foreach ($name in $list) {
@@ -24,8 +24,8 @@ foreach ($name in $list) {
     #Fields are pre-filled with default information for skipping when in error
     $data = [pscustomobject]@{
         Name = $name
-        Enabled = $False
         Risk = $null
+        Enabled = $False
         IPAddress = $null
         Active = $False
         Error = $null
@@ -44,11 +44,10 @@ foreach ($name in $list) {
         $data.Active = Test-Connection $name -Quiet -Count 2
         $data.Risk = 'Please Verify Name - Currently Active'  
             
-    } Catch { 
+    } Catch {
         $data.Error = [string]$_
     }
     $export += $data
-    
+    Write-Host $data
 }
-
 $export | Export-Csv "$path\computer_results.csv" -NoTypeInformation
