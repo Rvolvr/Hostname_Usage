@@ -15,7 +15,7 @@ Import-Module DnsClient
 [array]$export = $null
 
 #Import the list of computers from within a text file with no label
-$path = "REPLACE ME - No SLASH AT THE END"
+$path = "."
 $list = Get-Content "$path\computernames.txt"
 $list = $list.trim()
 
@@ -33,20 +33,23 @@ foreach ($name in $list) {
     Try {
         #If a computer is not on the domain, this will fail and move to the next name on the list.
         $data.Enabled = Get-ADComputer $name -ErrorAction:Stop | Select-Object -ExpandProperty Enabled
-        #Risk levels elevate as tests are passed 
-        $data.Risk = 'On Domain - Could cause issue if in shipping'
+
         
         #IPs are generally in DNS for only a few hours after disconnecting from the network. 
         $data.IPAddress = Resolve-DnsName $name -Type A -ErrorAction:Stop | Select-Object -ExpandProperty IPAddress
-        $data.Risk = 'Has an IP - Could have been active in last 24 hours' 
         
         #Pings show that the associated IP to the host is active.
         $data.Active = Test-Connection $name -Quiet -Count 2
-        $data.Risk = 'Please Verify Name - Currently Active'  
-            
     } Catch {
         $data.Error = [string]$_
     }
+    #Risk levels elevate as tests are passed 
+    $data.Risk = switch ($true) {
+        $data.Active {'Please Verify Name - Currently Active'; break }
+        ($null -ne $data.IPAddress) {'Has an IP - Could have been active in last 24 hours'; break }
+        $data.Enabled {'On Domain - Could cause issue if in shipping'}
+
+}
     $export += $data
     Write-Host $data
 }
