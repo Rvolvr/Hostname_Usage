@@ -2,20 +2,18 @@
 .SYNOPSIS
     Change the leader of individual users in bulk
 .Description 
-    This script will update the user (WIN) with the associated manager (Manager)
+    This script will update the user (NT) with the associated manager (Manager) then fill out the organizational information.
 
 .NOTES
-    Boise Specific
+    Our organization has the employee ID as the login and in the Homepage attribute. 
 
 #>
 
 Import-module ActiveDirectory
 
-
-
+[array]$export = $null
 $list = Import-CSV "\manager_roster.csv"
-#$logdir = "$ScriptDir\logs"
-#$date = Get-Date -Format d | ForEach-Object {$_ -replace "/", "."}
+
 
 
 foreach ($agent in $list){
