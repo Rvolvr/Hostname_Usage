@@ -1,1 +1,10 @@
-Get-WMIObject -class Win32_UserProfile | select Localpath,__RELPATH,LastUseTime
+$machines = read-host "Set computer from which to list users"
+$collection = Get-CimInstance -ClassName Win32_UserProfile -ComputerName $machines | Where-Object {$_.SID -match "S-1-5-21"}
+[INT]$profile = '0'
+foreach ($item in $collection) {
+    Write-Host $profile $item.localpath
+    $profile ++
+}
+[int]$selection = Read-Host "Make a selection"
+Write-Host "Selecting user $($collection[$selection].LocalPath) for removal"
+Remove-CimInstance $collection[$selection]
