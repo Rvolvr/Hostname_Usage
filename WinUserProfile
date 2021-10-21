@@ -1,10 +1,21 @@
-$machines = read-host "Set computer from which to list users"
-$collection = Get-CimInstance -ClassName Win32_UserProfile -ComputerName $machines | Where-Object {$_.SID -match "S-1-5-21"}
+$machine = read-host "Set computer from which to list users"
+$collection = Get-CimInstance -ClassName Win32_UserProfile -ComputerName $machine | Where-Object {$_.SID -match "S-1-5-21"}
+$active = Get-WmiObject -Class Win32_ComputerSystem -computername $machine | Select-Object UserName
+$name = $($active.UserName -split '\\')[1]
+Write-Host "$name is currently logged in"
 [INT]$profile = '0'
 foreach ($item in $collection) {
-    Write-Host $profile $item.localpath
+    $opt = ($item.localpath -split '\\')[2]
+    If ($name -ne $opt) {
+        Write-Host $profile $opt
+    }else{
+        Write-Host "Cannot select $name - Active User"
+        $disallowed = $profile
+    }
     $profile ++
 }
 [int]$selection = Read-Host "Make a selection"
-Write-Host "Selecting user $($collection[$selection].LocalPath) for removal"
-Remove-CimInstance $collection[$selection]
+If ($selection -ne $disallowed){
+    Write-Host "Selecting user $($collection[$selection].LocalPath) in $machine for removal"
+    Remove-CimInstance -computername $machine $collection[$selection]
+}
