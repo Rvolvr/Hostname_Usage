@@ -22,5 +22,5 @@ foreach ($item in $collection) {
 #Prevent active user from selection, then remove identified user
 If ($selection -ne $disallowed){
     Write-Host "Selecting user $($collection[$selection].LocalPath) in $machine for removal"
-    Remove-CimInstance -computername $machine $collection[$selection]
+    Remove-CimInstance -computername $machine $collection[$selection] -Confirm
 }
