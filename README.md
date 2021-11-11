@@ -15,3 +15,6 @@ This takes information and updates user information that would be tied to email.
 
 ## WinUserProfile.ps1
 This script is for proper removal of the user from a computer, including cached files. It tries to verify the active user and prevent that one from being deleted. Future update will look for disconnected sessions as well. These files do not go to a recycle bin. 
+
+## Domain-join.ps1
+For use when bringing new computers onto a Windows domain, (once customized) this script will allow for renaming, joining, and placing the computer within the new domain. 
