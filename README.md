@@ -12,3 +12,6 @@ This is modified Laps_Deleted to allow reference of the local administrator pass
 
 ## Managers
 This takes information and updates user information that would be tied to email. 
+
+## WinUserProfile
+This script is for proper removal of the user from a computer, including cached files. It tries to verify the active user and prevent that one from being deleted. Future update will look for disconnected sessions as well. These files do not go to a recycle bin. 
