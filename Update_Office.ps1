@@ -9,8 +9,8 @@ foreach ($item in $collection) {
         #open a remote session on the named computer and run the update.
         enter-PSSession -ComputerName $item -Credential $sesh
         Set-Location 'C:\Program Files\Common Files\microsoft shared\ClickToRun\'
-        Start-Process "OfficeC2RClient.exe" -ArgumentList "/changesetting Channel=Current"
-        start-process "OfficeC2RClient.exe" -ArgumentList "/update user"
+        & .\OfficeC2RClient.exe /changesetting Channel=Current
+        & .\OfficeC2RClient.exe /update user
         Exit-PSSession
     }
 }
