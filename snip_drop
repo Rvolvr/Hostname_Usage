@@ -1,5 +1,6 @@
 <#
-Description: Reference place to copy useful snippets.
+.Description
+Reference place to copy useful snippets.
 #>
 
 #Not to be run as a whole --DO NOT REMOVE--
@@ -11,7 +12,7 @@ $MyApp
 $MyApp = Get-WmiObject -Class Win32_Product | Where-Object{$_.Name -eq "Adobe Acrobat DC"}
 $MyApp.uninstall()
 
-## Rename computer and join to domain.
+## Rename computer and join to domain. -Sets the name to the serial number. 
 $serial = Get-WmiObject -class win32_bios | Select-Object -ExpandProperty SerialNumber
 Add-Computer -DomainName "<DOMAIN>" -newname "$serial" -OUPATH "<DOMAIN OU PATH>"
 
