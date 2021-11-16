@@ -9,6 +9,7 @@ Exit
 ## Uninstall an app from command line. Adobe Acrobat by example.
 $MyApp = Get-WmiObject -Class Win32_Product | Select-Object name
 $MyApp
+### 
 $MyApp = Get-WmiObject -Class Win32_Product | Where-Object{$_.Name -eq "Adobe Acrobat DC"}
 $MyApp.uninstall()
 
