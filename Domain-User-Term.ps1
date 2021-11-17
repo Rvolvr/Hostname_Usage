@@ -19,5 +19,5 @@ if ($null -ne $Term){
     Set-ADObject $Term -ProtectedFromAccidentalDeletion:$false -verbose
 
 } Else {
-    Write-Warning -Message "No active user found"
+    Write-Error -Message "No active user found"
 }
