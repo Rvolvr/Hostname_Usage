@@ -4,7 +4,7 @@ $collection = Get-Content '.\office_list.csv'
 $sesh = Get-Credential 
 foreach ($item in $collection) {
     #test to see if computer in list is online
-    $online = Test-Connection $item -Verbose
+    $online = Test-Connection $item -quiet -count 2
     if ($true -eq $online) {
         #open a remote session on the named computer and run the update.
         enter-PSSession -ComputerName $item -Credential $sesh
