@@ -5,6 +5,8 @@ Mirror an existing user for overwriting another user.
 .Description
 Generally for an established user that now has a requirement to mirror another user. Commenting out the areas which do not need to be overwritten is a good idea. 
 #>
+
+
 #Establish the variables which we will use later: felt it was necessary to force some arrays
 [Array]$group = $null
 [Array]$toGroupAdd = $null
