@@ -1,3 +1,14 @@
+<#
+.Synopsis
+Use for disabling and removing a user from groups. 
+
+.Description
+Takes a Active Directory user and removes them from the groups. This script also removes the manager link and changes the description. 
+
+.NOTES
+Since moving an object in Active Directory requires the path, that option has been omitted. 
+#>
+
 # Input of username.
 $Term = Read-Host "Please enter username which will be modified"
 $date = Get-Date -UFormat "%m/%d/%Y"

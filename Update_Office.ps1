@@ -1,5 +1,5 @@
 <#
-.description
+.Description
 Sets off an update for the "Click to Run" version of Office.
 
 .Notes
