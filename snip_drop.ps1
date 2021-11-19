@@ -10,12 +10,12 @@ Exit
 $MyApp = Get-WmiObject -Class Win32_Product | Select-Object name
 $MyApp
 ### 
-$MyApp = Get-WmiObject -Class Win32_Product | Where-Object{$_.Name -eq "Adobe Acrobat DC"}
+$MyApp = Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -eq "FORCEPOINT ONE ENDPOINT"}
 $MyApp.uninstall()
 
-## Rename computer and join to domain. -Sets the name to the serial number. 
-$serial = Get-WmiObject -class win32_bios | Select-Object -ExpandProperty SerialNumber
-Add-Computer -DomainName "<DOMAIN>" -newname "$serial" -OUPATH "<DOMAIN OU PATH>"
+## Rename computer and join to domain. -Sets the name to serial number.   
+$object = Get-WmiObject -class win32_bios
+Add-Computer -DomainName "<DOMAIN>" -newname "$($object.SerialNumber)" -OUPATH "<DOMAIN OU PATH>"
 
 ## Remove (Example all Xbox apps) which were installed my Microsoft Store
 Get-AppPackage "*xbox*" | Remove-AppxPackage
