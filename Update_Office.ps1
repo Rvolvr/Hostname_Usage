@@ -1,5 +1,6 @@
 <#
 .Description
+
 Sets off an update for the "Click to Run" version of Office.
 
 .Notes
@@ -14,7 +15,7 @@ $sesh = Get-Credential
 
 foreach ($item in $collection) {
     #test to see if computer in list is online
-    $online = Test-Connection $item -Verbose
+    $online = Test-Connection $item -quiet -count 2
     if ($true -eq $online) {
         #open a remote session on the named computer and run the update.
         Enter-PSSession -ComputerName $item -Credential $sesh

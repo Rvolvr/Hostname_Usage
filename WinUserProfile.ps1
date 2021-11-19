@@ -15,6 +15,7 @@ $machine = read-host "State computer to list users"
 #Pull information from machine, filter out non-domain users
 $collection = Get-CimInstance -ClassName Win32_UserProfile -ComputerName $machine -ErrorAction Stop | Where-Object {$_.SID -match "S-1-5-21"}
 
+
 #Pull the name of the active user
 $active = Get-WmiObject -Class Win32_ComputerSystem -computername $machine | Select-Object UserName
 #clean up the active user information
