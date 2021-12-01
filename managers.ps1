@@ -12,7 +12,7 @@
 Import-module ActiveDirectory
 
 [array]$export = $null
-$list = Import-CSV "\manager_roster.csv"
+$list = Import-CSV \manager_roster.csv
 
 
 
@@ -20,4 +20,4 @@ foreach ($agent in $list){
     $export += Get-ADUser $agent.NT | Set-ADUser -Manager $agent.managerID -Description $agent.title -title $agent.title -office $agent.country -homepage $agent.NT -department $agent.department 
     
 }    
-$export | Export-Csv ".\agent_move.csv" -NoTypeInformation
+$export | Export-Csv .\agent_move.csv -NoTypeInformation
