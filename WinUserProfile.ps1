@@ -10,7 +10,7 @@ There is no way to recreate the deleted information.
 If there are any "disconnected" sessions: those will not be identified.
 #>
 
-$machine = read-host 'State computer to list users'
+$machine = Read-Host 'State computer to list users'
 
 # Pull information from machine, filter out non-domain users.
 $collection = Get-CimInstance -ClassName Win32_UserProfile -ComputerName $machine -ErrorAction Stop | Where-Object SID -match 'S-1-5-21'

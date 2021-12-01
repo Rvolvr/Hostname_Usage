@@ -3,6 +3,7 @@
 Use for disabling and removing a user from groups. 
 
 .DESCRIPTION
+
 Takes a Active Directory user and removes them from the groups. This script also removes the manager link and changes the description. 
 
 .NOTES
