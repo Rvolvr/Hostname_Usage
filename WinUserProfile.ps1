@@ -25,11 +25,11 @@ Write-Warning -Message "$name is currently logged in"
 
 # Start the selection menu.
 [INT]$profile = 0
+
 foreach ($item in $collection) {
     $opt = ($item.localpath -split '\\')[2]
     If ($name -ne $opt) {
         Write-Output "$profile $opt"
-
     }Else{
         Write-Warning -Message "Cannot select $name - Active User"
         $disallowed = $profile
@@ -43,9 +43,9 @@ $profile --
 # Prevent active user from selection, then remove identified user.
 if ($selection -le $profile) {
 
-## If/else to show show the active user within the selection menu.
+    # If/else to show show the active user within the selection menu.
     If ($selection -ne $disallowed){
-        Write-Warning -Message "Selecting user $($collection[$selection].LocalPath) in $machine for removal"
+        Write-Output -Message "Selecting user $($collection[$selection].LocalPath) in $machine for removal"
         Remove-CimInstance -computername $machine $collection[$selection] -Confirm
 
     } Else {
