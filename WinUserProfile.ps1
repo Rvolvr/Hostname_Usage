@@ -22,15 +22,16 @@ $active = Get-WmiObject -Class Win32_ComputerSystem -computername $machine | Sel
 # Clean up the active user information.
 $name = $($active.UserName -split '\\')[1]
 Write-Warning -Message "$name is currently logged in"
+#Start the selection menu
+[INT]$profile = '0'
 
-# Start the selection menu.
-[INT]$profile = 0
 foreach ($item in $collection) {
     $opt = ($item.localpath -split '\\')[2]
     If ($name -ne $opt) {
         Write-Output "$profile $opt"
 
-    }Else{
+    }else{
+
         Write-Warning -Message "Cannot select $name - Active User"
         $disallowed = $profile
     }
@@ -38,18 +39,15 @@ foreach ($item in $collection) {
 }
 
 $profile --
-[INT]$selection = Read-Host 'Make a selection'
-
-# Prevent active user from selection, then remove identified user.
+[int]$selection = Read-Host "Make a selection"
+#Prevent active user from selection, then remove identified user
 if ($selection -le $profile) {
-
-## If/else to show show the active user within the selection menu.
+    
     If ($selection -ne $disallowed){
-        Write-Warning -Message "Selecting user $($collection[$selection].LocalPath) in $machine for removal"
+        Write-Output -Message "Selecting user $($collection[$selection].LocalPath) in $machine for removal"
         Remove-CimInstance -computername $machine $collection[$selection] -Confirm
-
     } Else {
-        Write-Error -Message 'Cannot delete Active user'
+        Write-Error -Message "Cannot delete Active user"
     }
 
 } Else {
