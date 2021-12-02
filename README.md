@@ -20,7 +20,7 @@ Sets off an update for the "Click to Run" version of Office on a remote machine 
 
 ## [Managers](https://github.com/Rvolvr/Powershell_AD_Scripts/blob/main/managers.ps1)
 
-Convert a CSV into  multiple user settings which then fills out an Active Directory organization. These feilds are generally the ones tied to Teams and Exchange (Outlook).
+Convert a CSV into  multiple user settings which then fills out an Active Directory organization. These fields are generally the ones tied to Teams and Exchange (Outlook), but will need to be customized to the CSV.
 
 ## [WinUserProfile](https://github.com/Rvolvr/Powershell_AD_Scripts/blob/main/WinUserProfile.ps1)
 
