@@ -14,14 +14,14 @@ Import-Module ActiveDirectory
 Import-Module DnsClient
 [array]$export = $null
 
-#Import the list of computers from within a text file with no label
+# Import the list of computers from within a text file with no label
 $path = "."
 $list = Get-Content "$path\computernames.txt"
 $list = $list.trim()
 
 foreach ($name in $list) {
-    #creating an exportable object with the informational fields we will use
-    #Fields are pre-filled with default information for skipping when in error
+
+## Creating an exportable object with the informational fields we will use. Fields are pre-filled with default information for skipping when in error.
     $data = [pscustomobject]@{
         Name = $name
         Risk = $null
@@ -31,19 +31,21 @@ foreach ($name in $list) {
         Error = $null
     }
     Try {
-        #If a computer is not on the domain, this will fail and move to the next name on the list.
+### If a computer is not on the domain, this will fail and move to the next name on the list.
         $data.Enabled = Get-ADComputer $name -ErrorAction:Stop | Select-Object -ExpandProperty Enabled
 
         
-        #IPs are generally in DNS for only a few hours after disconnecting from the network. 
+### IPs are generally in DNS for only a few hours after disconnecting from the network. 
         $data.IPAddress = Resolve-DnsName $name -Type A -ErrorAction:Stop | Select-Object -ExpandProperty IPAddress
         
-        #Pings show that the associated IP to the host is active.
+### Pings show that the associated IP to the host is active.
         $data.Active = Test-Connection $name -Quiet -Count 2
+    
     } Catch {
         $data.Error = [string]$_
     }
-    #Risk levels elevate as tests are passed 
+    
+## Risk levels elevate as tests are passed 
     $data.Risk = switch ($true) {
         $data.Active {'Please Verify Name - Currently Active'; break }
         ($null -ne $data.IPAddress) {'Has an IP - Could have been active in last 24 hours'; break }
