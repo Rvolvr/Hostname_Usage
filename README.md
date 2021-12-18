@@ -1,6 +1,6 @@
 # My_Useful_Powershell
 
-This will be my non-domain specific powershell scripts which could be helpful to IT personnel starting in a new environment. These scripts are intended to be copied and pasted to the user's computer for running and tweaking. Once on a user's computer, feel free to modify the script to your own needs.
+This will be my non-domain specific powershell scripts which could be helpful to IT personnel starting in a new environment. I will be happy to modify these for user specific needs - add a [Discussion](https://github.com/Rvolvr/Powershell_AD_Scripts/discussions "Powershell Discussion") or [Issue](https://github.com/Rvolvr/Powershell_AD_Scripts/issues "PowerShell Issue"). This will be my non-domain specific powershell scripts which could be helpful to IT personnel starting in a new environment. These scripts are intended to be copied and pasted to the user's computer for running and tweaking. Once on a user's computer, feel free to modify the script to your own needs.
 
 ## [Snip_drop](https://github.com/Rvolvr/Powershell_AD_Scripts/blob/main/snip_drop.ps1)
 
