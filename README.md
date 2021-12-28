@@ -28,7 +28,7 @@ Sets off an update for the "Click to Run" version of Office on a remote machine 
 
 ## [WinUserProfile](https://github.com/Rvolvr/Powershell_AD_Scripts/blob/main/WinUserProfile.ps1)
 
-Best used to free up space by removing old users with huge Outlook OST/PST files. This script is for proper removal of the user from a computer, including local files. It tries to verify the active user and prevent that one from being deleted. These files do not go to a recycle bin. Future update will look for disconnected sessions as well. 
+Best used to free up space by removing old users with huge Outlook OST/PST files. This script is for proper removal of the user from a computer, including local files. It tries to verify the active user and prevent that one from being deleted. These files do not go to a recycle bin. Future update will look for disconnected sessions as well.
 
 
 ## [Managers](https://github.com/Rvolvr/Powershell_AD_Scripts/blob/main/managers.ps1)
