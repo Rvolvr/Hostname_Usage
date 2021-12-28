@@ -10,12 +10,16 @@ Exit
 $MyApp = Get-WmiObject -Class Win32_Product | Select-Object name
 $MyApp
 ### 
-$MyApp = Get-WmiObject -Class Win32_Product | Where-Object Name -eq 'FORCEPOINT ONE ENDPOINT'
+$MyApp = Get-WmiObject -Class Win32_Product | Where-Object Name -eq 'Dell SupportAssist'
 $MyApp.uninstall()
 
 ## Rename computer and join to domain. -Sets the name to serial number.   
 $object = Get-WmiObject -class win32_bios
 Add-Computer -DomainName '<DOMAIN>' -newname "$($object.SerialNumber)" -OUPATH '<DOMAIN OU PATH>'
+
+## Reset User Password expiration without changing password
+set-aduser $user -Replace @{pwdlastset = 0}
+set-aduser $user -Replace @{pwdlastset = -1}
 
 ## Remove (Example all Xbox apps) which were installed my Microsoft Store
 Get-AppPackage "*xbox*" | Remove-AppxPackage

@@ -30,6 +30,7 @@ Sets off an update for the "Click to Run" version of Office on a remote machine 
 
 Best used to free up space by removing old users with huge Outlook OST/PST files. This script is for proper removal of the user from a computer, including local files. It tries to verify the active user and prevent that one from being deleted. These files do not go to a recycle bin. Future update will look for disconnected sessions as well. 
 
+
 ## [Managers](https://github.com/Rvolvr/Powershell_AD_Scripts/blob/main/managers.ps1)
 
 Convert a CSV into  multiple user settings which then fills out an Active Directory organization. These fields are generally the ones tied to Teams and Exchange (Outlook), but will need to be customized to the CSV.
