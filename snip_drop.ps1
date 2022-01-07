@@ -10,7 +10,7 @@ Exit
 $MyApp = Get-WmiObject -Class Win32_Product | Select-Object name
 $MyApp
 ### 
-$MyApp = Get-WmiObject -Class Win32_Product | Where-Object Name -eq 'Dell SupportAssist'
+$MyApp = Get-WmiObject -Class Win32_Product | Where-Object Name -match "java"
 $MyApp.uninstall()
 
 ## Rename computer and join to domain. -Sets the name to serial number.   
