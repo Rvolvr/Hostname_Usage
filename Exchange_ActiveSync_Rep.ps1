@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+   Call Exchange Online to output a report of all devices allowed to sync.
+
+.DESCRIPTION 
+    The logged in account must have Exchange Online Administrator (or Global Administrator) permissions. The script will reach out to Microsoft Online Services for authentication then pass those credentials into Exchange online. After authenticated, the script will pull all 'Allowed' devices in available to that logged in user and translate them into an exported CSV file. 
+ 
+.NOTES 
+    Information about the environment, things to need to be consider and other information.
+
+.COMPONENT 
+    Microsoft Online Services module, and Exhange Online modules are required. 
+
+.LINK 
+    https://github.com/Rvolvr/Powershell_AD_Scripts
+ 
+.Parameter FILENAME
+    Specifies path and name of the CSV file to be exported.
+  
+#>
+
 PARAM(
     [Parameter(Mandatory,HelpMessage="Enter file name and path.")][string]$filename
 )
