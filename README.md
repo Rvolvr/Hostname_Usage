@@ -12,6 +12,9 @@ These are a series of copy/paste snippets that can be copied into a new computer
 
 Reads the various fields in Active Directory and moves them to the second user, then compares the Group Memberships to realign the new user. I chose the complex way of comparison, rather than just removing all and then adding them back.
 
+## HomeDirectory_Creation
+Pulls user information from Active Directory and creates Home Directory folder with corresponding user security settings.
+
 ## [LAPS_Deleted](https://github.com/Rvolvr/Powershell_AD_Scripts/blob/main/Laps_Deleted.ps1)
 
 Script is originally from a the internet, kept for reference. The organization I worked for had computers overwritten with the same name in the domain while LAPS still controlled the administrator password. Finding passwords on the deleted object is the best way to rescue that machine from having to be completely reimaged. This can now be right-clicked and `Run in PowerShell` from the file in Explorer.
