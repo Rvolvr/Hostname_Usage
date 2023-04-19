@@ -6,11 +6,11 @@ Reference place to copy useful snippets.
 #Not to be run as a whole --DO NOT REMOVE--
 Exit
 
-## Uninstall an app from command line. Adobe Acrobat by example.
+## Uninstall an app from command line. Dell Support Assist by example.
 $MyApp = Get-WmiObject -Class Win32_Product | Select-Object name
 $MyApp
-### 
-$MyApp = Get-WmiObject -Class Win32_Product | Where-Object Name -match "java"
+$MyApp = Get-WmiObject -Class Win32_Product | Where-Object Name -eq 'Dell SupportAssist'
+
 $MyApp.uninstall()
 
 ## Rename computer and join to domain. -Sets the name to serial number.   
