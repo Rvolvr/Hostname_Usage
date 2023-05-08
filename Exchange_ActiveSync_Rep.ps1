@@ -60,4 +60,4 @@ $conglom = foreach ($device in $list) {
     }
 }
 
-$conglom | Export-Csv -path $file
+$conglom | Export-Csv -path $filename
