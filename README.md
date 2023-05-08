@@ -12,7 +12,7 @@ These are a series of copy/paste snippets that can be copied into a new computer
 
 Reads the various fields in Active Directory and moves them to the second user, then compares the Group Memberships to realign the new user. I chose the complex way of comparison, rather than just removing all and then adding them back.
 
-## [HomeDirectory_Creation]("TBD")
+## [HomeDirectory_Creation](https://github.com/Rvolvr/Powershell_AD_Scripts/blob/main/HomeDirectory_Creation.ps1)
 Pulls user information from Active Directory and creates Home Directory folder with corresponding user security settings.
 
 ## [LAPS_Deleted](https://github.com/Rvolvr/Powershell_AD_Scripts/blob/main/Laps_Deleted.ps1)
@@ -35,7 +35,7 @@ Sets off an update for the "Click to Run" version of Office on a remote machine 
 
 Best used to free up space by removing old users with huge Outlook OST/PST files. This script is for proper removal of the user from a computer, including local files. It tries to verify the active user and prevent that one from being deleted. These files do not go to a recycle bin. Future update will look for disconnected sessions as well.
 
-## [SplitDbxContent.ps1]("TBD")
+## [SplitDbxContent.ps1](https://github.com/Rvolvr/Powershell_AD_Scripts/blob/main/SplitDbxContent.ps1)
 
 This script seems absent from the Windows PS Gallery. My organization downloaded the file before the removal, so I am placing a copy here for future use. This file is referenced to fix "Hole in my Boot" UEFI insecurities and is referenced from [Microsoft guidance for applying Secure Boot DBX update (KB4575994)](https://support.microsoft.com/en-gb/topic/microsoft-guidance-for-applying-secure-boot-dbx-update-kb4575994-e3b9e4cb-a330-b3ba-a602-15083965d9ca). 
 
