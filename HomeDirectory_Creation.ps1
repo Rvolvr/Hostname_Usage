@@ -34,7 +34,7 @@ switch ($ADUSER) {
         # Pull new folder current security properties
         $ACL = Get-ACL -Path $ADuser.homedirectory
         # Create rule then merge that information into the variable
-        $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("$(Get-WmiObject -Class Win32_NTDomain | Select-Object -ExpandProperty domainname )\$($ADUser.SamAccountName)",'FullControl','Allow')
+        $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("$(Get-WmiObject -Class Win32_NTDomain | Select-Object -ExpandProperty domainname )\$($ADUser.SamAccountName)",'FullControl','ContainerInherit,ObjectInherit','NoPropagateInherit','Allow')
         $ACL.SetAccessRule($AccessRule)
         # Overwrite existing rule with merged variable.
         $ACL | Set-Acl -Path $ADuser.homedirectory -Verbose}
